@@ -11,7 +11,7 @@ const Dashboard: React.FC = () => {
 
 
   useEffect(() => {
-    if (jwt || user) {
+    if (!jwt || !user) {
       router.push('/login');
     }
   }, [jwt, router]);
@@ -20,8 +20,16 @@ const Dashboard: React.FC = () => {
 
   return (
     <Grid container spacing={3}>
-      <Grid item spacing={3}>
-
+      <Grid item >
+        <Typography>
+          Olá, {user?.name}
+        </Typography>
+        <Typography>
+          seu email é, {user?.email}
+        </Typography>
+        <Typography>
+          você possui o tolken de acesso {jwt}
+        </Typography>
       </Grid>
     </Grid>
 

@@ -2,6 +2,8 @@ import { Accordion, AccordionDetails, AccordionSummary, Backdrop, Box, Card, Car
 import axios from "axios";
 import { useState, useEffect } from "react";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { formatToCurrency } from "@/util/convertCurrentPtBr";
+import { formatDate } from "@/util/convertDate";
 
 const Transactions = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
@@ -26,6 +28,8 @@ const Transactions = () => {
 
   useEffect(() => {
     loadData();
+    console.log(data);
+    
   }, []);
 
 
@@ -43,7 +47,7 @@ const Transactions = () => {
         <Grid item lg={8} xl={6}>
           <Card>
             <CardContent>
-              {data.map((item, index) => (
+              {data?.map((item, index) => (
                 <Accordion
                   expanded={expanded === `panel${index}`}
                   onChange={handleChange(`panel${index}`)}
@@ -56,18 +60,32 @@ const Transactions = () => {
                   >
 
                     <Typography width={'50%'} >
-                      {item.value}
+                      {formatToCurrency(item.value)}
                     </Typography>
-                    <Typography width={'50%'} color={item.type === 'Receita' ? 'secondary' : 'error'} textAlign={'end'}>
+                    <Typography width={'50%'} color={item.type === 'receita' ? 'secondary' : 'error'} textAlign={'end'}>
                       {item.type}
                     </Typography>
 
                   </AccordionSummary>
                   <AccordionDetails>
-                    <Typography>
-                      Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
-                      Aliquam eget maximus est, id dignissim quam.
-                    </Typography>
+                    <Grid container spacing={2}>
+                      <Grid item lg={4} >
+                        <Typography>
+                          {item.Wallet}
+                        </Typography>
+                      </Grid>
+                      <Grid item lg={4} >
+                        <Typography>
+                         {formatDate(item.date)}
+                        </Typography>
+                      </Grid>
+                      <Grid item lg={4} >
+                        <Typography>
+                          {item.type === 'Receita' ? 'Recebido:' : 'Pago:'} {item.pay ? 'Sim' : 'Não'}
+                        </Typography>
+                      </Grid>
+
+                    </Grid>
                   </AccordionDetails>
                 </Accordion>
               ))}

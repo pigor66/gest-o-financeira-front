@@ -9,7 +9,7 @@ const App: React.FC = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (jwt|| user) {
+    if (!jwt|| !user) {
       router.push('/login');
     } else {
       router.push('/dashboard');

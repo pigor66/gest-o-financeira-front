@@ -4,7 +4,7 @@ import { TextField, Button, Typography, Box, FormControl, IconButton, Input, Inp
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 
 const LoginForm: React.FC<FormProps<LoginFormData>> = ({ onSubmit }) => {
-  const [identifier, setIdentifier] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -12,20 +12,20 @@ const LoginForm: React.FC<FormProps<LoginFormData>> = ({ onSubmit }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({ identifier, password });
+    onSubmit({ email, password });
   };
 
   return (
     <FormGroup onSubmit={handleSubmit} sx={{  minWidth:380, mx: 'auto', p: 1 }}>
       <Typography variant="h4" component="h2" gutterBottom textAlign={'center'}>
-        Login
+        Entrar
       </Typography>
 
       <FormControl sx={{ m: 1 }} variant="standard">
         <InputLabel htmlFor="email">Email</InputLabel>
         <Input
-          value={identifier}
-          onChange={(e) => setIdentifier(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </FormControl>
       <FormControl sx={{ m: 1 }} variant="standard">
@@ -49,7 +49,7 @@ const LoginForm: React.FC<FormProps<LoginFormData>> = ({ onSubmit }) => {
       </FormControl>
 
       <Button onClick={handleSubmit} variant="contained" color="primary" fullWidth style={{ marginTop: '2rem' }} >
-        Login
+        Enviar
       </Button>
     </FormGroup>
   );

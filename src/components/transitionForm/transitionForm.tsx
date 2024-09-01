@@ -11,6 +11,8 @@ import {
   Grid,
   Button,
   SelectChangeEvent,
+  OutlinedInput,
+  InputAdornment,
 } from '@mui/material';
 
 type TransactionType = 'receita' | 'despesa';
@@ -60,8 +62,8 @@ export default function TransitionForm({
               value={transactionType}
               onChange={handleTransactionTypeChange}
             >
-              <FormControlLabel value="Receita" control={<Radio />} label="Receita" />
-              <FormControlLabel value="Despesa" control={<Radio />} label="Despesa" />
+              <FormControlLabel value="receita" control={<Radio />} label="Receita" />
+              <FormControlLabel value="despesa" control={<Radio />} label="Despesa" />
             </RadioGroup>
           </FormControl>
         </Grid>
@@ -93,14 +95,17 @@ export default function TransitionForm({
         </Grid>
 
         <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            label="Valor"
-            type="number"
+          <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
+          <OutlinedInput
             value={amount}
             onChange={handleAmountChange}
             fullWidth
-            margin="normal"
+            type="text"
+            id="outlined-adornment-amount"
+            startAdornment={<InputAdornment position="start">R$</InputAdornment>}
+            label="Valor"
           />
+         
         </Grid>
 
         <Grid item xs={12} sm={6} md={6}>

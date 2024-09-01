@@ -29,6 +29,7 @@ import {
 } from '@mui/icons-material';
 import { styled, useTheme, Theme } from '@mui/material/styles';
 import { closedMixin, DrawerHeader, openedMixin } from './style';
+import { useAuth } from '@/context/authContext';
 
 const drawerWidth = 240;
 
@@ -93,7 +94,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, darkMode, h
   const theme = useTheme();
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const jwt = false;
+  const { jwt } = useAuth();
 
   const getTitle = () => {
     switch (router.pathname) {
@@ -104,7 +105,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, darkMode, h
       case '/dashboard/transacoes':
         return 'Transações';
       default:
-        return 'Dashboard';
+        return 'Controle financeiro';
     }
   };
 
@@ -123,7 +124,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, darkMode, h
       <AppBar position="fixed" open={open} color="inherit" sx={{ width: open ? `calc(100% - ${drawerWidth}px)` : '100%' }}>
         <Toolbar>
           <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} width={'100%'} px={2}>
-            {!isMobile && (
+            {!isMobile &&  (
               <IconButton
                 color="inherit"
                 aria-label="open drawer"
@@ -135,7 +136,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, darkMode, h
               </IconButton>
             )}
 
-            <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} width={'100%'}px={2}>
+            <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} width={'100%'} px={2}>
               <Typography variant="h6" noWrap  >
                 {getTitle()}
               </Typography>
@@ -146,7 +147,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, darkMode, h
       </AppBar>
 
 
-      {!jwt && <DrawerStyled variant="permanent" open={open}>
+      {jwt && <DrawerStyled variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
